@@ -1,5 +1,5 @@
 
-package pl.manciak.nutritionixapi.dto;
+package pl.manciak.nutritionixapi.dto.NutriResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pl.manciak.nutritionixapi.entity.FoodEntity;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -47,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "photo",
     "sub_recipe"
 })
-public class Food {
+public class Food extends FoodEntity {
 
     @JsonProperty("food_name")
     private String foodName;

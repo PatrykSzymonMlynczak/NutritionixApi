@@ -1,5 +1,5 @@
 
-package pl.manciak.nutritionixapi.dto;
+package pl.manciak.nutritionixapi.dto.NutriResponse;
 
 import java.util.HashMap;
 import java.util.Map;

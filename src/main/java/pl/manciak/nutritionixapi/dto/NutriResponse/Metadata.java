@@ -1,5 +1,5 @@
 
-package pl.manciak.nutritionixapi.dto;
+package pl.manciak.nutritionixapi.dto.NutriResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,15 +12,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "attr_id",
-    "value"
+    "is_raw_food"
 })
-public class FullNutrient {
+public class Metadata {
 
-    @JsonProperty("attr_id")
-    private Integer attrId;
-    @JsonProperty("value")
-    private Double value;
+    @JsonProperty("is_raw_food")
+    private Boolean isRawFood;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -28,38 +25,26 @@ public class FullNutrient {
      * No args constructor for use in serialization
      * 
      */
-    public FullNutrient() {
+    public Metadata() {
     }
 
     /**
      * 
-     * @param attrId
-     * @param value
+     * @param isRawFood
      */
-    public FullNutrient(Integer attrId, Double value) {
+    public Metadata(Boolean isRawFood) {
         super();
-        this.attrId = attrId;
-        this.value = value;
+        this.isRawFood = isRawFood;
     }
 
-    @JsonProperty("attr_id")
-    public Integer getAttrId() {
-        return attrId;
+    @JsonProperty("is_raw_food")
+    public Boolean getIsRawFood() {
+        return isRawFood;
     }
 
-    @JsonProperty("attr_id")
-    public void setAttrId(Integer attrId) {
-        this.attrId = attrId;
-    }
-
-    @JsonProperty("value")
-    public Double getValue() {
-        return value;
-    }
-
-    @JsonProperty("value")
-    public void setValue(Double value) {
-        this.value = value;
+    @JsonProperty("is_raw_food")
+    public void setIsRawFood(Boolean isRawFood) {
+        this.isRawFood = isRawFood;
     }
 
     @JsonAnyGetter

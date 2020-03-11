@@ -1,7 +1,8 @@
 
-package pl.manciak.nutritionixapi.dto;
+package pl.manciak.nutritionixapi.dto.NutriResponse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "is_raw_food"
+    "foods"
 })
-public class Metadata {
+public class NutritionixResponse {
 
-    @JsonProperty("is_raw_food")
-    private Boolean isRawFood;
+    @JsonProperty("foods")
+    private List<Food> foods = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -25,26 +26,26 @@ public class Metadata {
      * No args constructor for use in serialization
      * 
      */
-    public Metadata() {
+    public NutritionixResponse() {
     }
 
     /**
      * 
-     * @param isRawFood
+     * @param foods
      */
-    public Metadata(Boolean isRawFood) {
+    public NutritionixResponse(List<Food> foods) {
         super();
-        this.isRawFood = isRawFood;
+        this.foods = foods;
     }
 
-    @JsonProperty("is_raw_food")
-    public Boolean getIsRawFood() {
-        return isRawFood;
+    @JsonProperty("foods")
+    public List<Food> getFoods() {
+        return foods;
     }
 
-    @JsonProperty("is_raw_food")
-    public void setIsRawFood(Boolean isRawFood) {
-        this.isRawFood = isRawFood;
+    @JsonProperty("foods")
+    public void setFoods(List<Food> foods) {
+        this.foods = foods;
     }
 
     @JsonAnyGetter
