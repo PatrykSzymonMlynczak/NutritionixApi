@@ -40,6 +40,8 @@ public class MainController {
                       httpEntity,
                       NutritionixResponse.class );
 
+       List<Food> foodList = exchange.getBody().getFoods();
+
 /*
         AtomicReference<Double> sumKcal = new AtomicReference<>(0D);
 
@@ -47,7 +49,7 @@ public class MainController {
         foodList.stream().map(y -> y.getNfCalories()).forEach(y -> sumKcal.updateAndGet(v -> v + y));
 */
 
-        return mealManager.saveMeal(exchange.getBody().getFoods(),"nowy");
+        return mealManager.saveMeal(foodList,"nowy");
     }
 
 

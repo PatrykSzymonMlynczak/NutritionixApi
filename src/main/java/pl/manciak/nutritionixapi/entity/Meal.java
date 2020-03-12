@@ -13,11 +13,12 @@ public class Meal {
 
     private String mealName;
 
+    private Nutrients nutrientsSum;
+
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FoodEntity> foodList = new ArrayList<>();
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Nutriensts> nutrienstsSum = new ArrayList<>();
+
 
     public Meal() {
     }
@@ -38,11 +39,11 @@ public class Meal {
         this.foodList = foodList;
     }
 
-    public List<Nutriensts> getNutrienstsSum() {
-        return nutrienstsSum;
+    public Nutrients getNutrientsSum() {
+        return nutrientsSum;
     }
 
-    public void setNutrienstsSum(List<Nutriensts> nutrienstsSum) {
-        this.nutrienstsSum = nutrienstsSum;
+    public void setNutrientsSum(Nutrients nutrientsSum) {
+        this.nutrientsSum = nutrientsSum;
     }
 }

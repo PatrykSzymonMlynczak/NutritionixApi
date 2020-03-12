@@ -5,12 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class Nutriensts {
 
-    @Id
+public class Nutrients {
+
+/*    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id;*/
 
     private Integer servingWeightGrams;
     private Integer servingQty;
@@ -27,7 +27,36 @@ public class Nutriensts {
     private Integer nfP;
 
 
-    public Nutriensts(){}
+    public Nutrients(){}
+
+/*    public void increeseNutrients(  Integer servingWeightGrams,
+             Integer servingQty,
+             Double nfCalories,
+             Double nfTotalFat,
+             Double nfSaturatedFat,
+             Integer nfCholesterol,
+             Integer nfSodium,
+             Double nfTotalCarbohydrate,
+             Integer nfDietaryFiber,
+             Double nfSugars,
+             Double nfProtein,
+             Integer nfPotassium,
+             Integer nfP){
+
+         this.servingQty += servingQty;
+         nfCalories;
+         nfTotalFat;
+         nfSaturatedFat;
+         nfCholesterol;
+         nfSodium;
+         nfTotalCarbohydrate;
+         nfDietaryFiber;
+         nfSugars;
+         nfProtein;
+         nfPotassium;
+         nfP;
+
+    }*/
 
 
 
