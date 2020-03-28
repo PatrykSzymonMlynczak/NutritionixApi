@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.manciak.nutritionixapi.Repository.MealRepository;
 import pl.manciak.nutritionixapi.entity.Meal;
+import pl.manciak.nutritionixapi.entity.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,4 +34,12 @@ public class MealService   {
     public Meal save (Meal meal){
         return mealRepository.save(meal);
     }
+
+    public List<Meal> getByFood(List<Product> product){
+       return mealRepository.findAllMealsByFoodListIn(product);
+
+    }
+
+
+
 }

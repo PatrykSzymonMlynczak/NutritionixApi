@@ -6,24 +6,39 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import pl.manciak.nutritionixapi.Manager.MealManager;
+import pl.manciak.nutritionixapi.Repository.ProductRepository;
 import pl.manciak.nutritionixapi.dto.NutriResponse.Food;
 import pl.manciak.nutritionixapi.dto.NutriResponse.NutritionixResponse;
 import pl.manciak.nutritionixapi.entity.Meal;
+import pl.manciak.nutritionixapi.entity.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class MainController {
 
     MealManager mealManager;
+    ProductRepository productRepository;
 
     @Autowired
-    public MainController(MealManager mealManager) {
+    public MainController(MealManager mealManager, ProductRepository productRepository) {
+
         this.mealManager = mealManager;
+        this.productRepository = productRepository;
     }
 
-    @GetMapping(path= "/nutrients/{query}")
-    public Meal getNutrients(@PathVariable String query){
+    @GetMapping("/byFood/{food}")
+    public List<Meal> getByFood(@PathVariable String food){
+
+        ArrayList<Product> list = new ArrayList();
+        list.add(productRepository.findByFoodName(food));
+
+        return mealManager.getByFood(list);
+    }
+
+    @GetMapping(path= "/nutrients/{name}/{query}")
+    public Meal getNutrients(@PathVariable String query, @PathVariable String name){
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("x-app-id", "79aa9128");
@@ -42,14 +57,19 @@ public class MainController {
 
        List<Food> foodList = exchange.getBody().getFoods();
 
-/*
-        AtomicReference<Double> sumKcal = new AtomicReference<>(0D);
+        return mealManager.saveMeal(foodList,name);
+    }
 
-        foodList.stream().map(y -> y.getFoodName()).forEach(System.out::println);
-        foodList.stream().map(y -> y.getNfCalories()).forEach(y -> sumKcal.updateAndGet(v -> v + y));
-*/
+    @GetMapping(path= "/get/{mealName}")
+    public Meal getMeal(@PathVariable String mealName){
 
-        return mealManager.saveMeal(foodList,"nowy");
+        return mealManager.getMeal(mealName);
+    }
+
+    @DeleteMapping(path = "/delete/{mealName}")
+    public  void deleteMeal(@PathVariable String mealName){
+
+        mealManager.deleteMeal(mealName);
     }
 
 

@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pl.manciak.nutritionixapi.entity.FoodEntity;
+import pl.manciak.nutritionixapi.entity.Product;
+
+import javax.persistence.Entity;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -48,7 +50,8 @@ import pl.manciak.nutritionixapi.entity.FoodEntity;
     "photo",
     "sub_recipe"
 })
-public class Food extends FoodEntity {
+
+public class Food{
 
     @JsonProperty("food_name")
     private String foodName;

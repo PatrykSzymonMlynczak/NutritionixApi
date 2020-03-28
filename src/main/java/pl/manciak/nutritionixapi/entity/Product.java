@@ -1,19 +1,11 @@
 
 package pl.manciak.nutritionixapi.entity;
 
-import com.fasterxml.jackson.annotation.*;
-import pl.manciak.nutritionixapi.dto.NutriResponse.*;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Entity
-public class FoodEntity {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +28,36 @@ public class FoodEntity {
     private Integer nfPotassium;
     private Integer nfP;
 
-    public FoodEntity() {
+    @ManyToOne
+    private Meal meal;
+
+    public Product() {
+    }
+
+    public Product(String foodName, Integer servingQty, String servingUnit, Integer servingWeightGrams, Double nfCalories, Double nfTotalFat, Double nfSaturatedFat, Integer nfCholesterol, Integer nfSodium, Double nfTotalCarbohydrate, Integer nfDietaryFiber, Double nfSugars, Double nfProtein, Integer nfPotassium, Integer nfP) {
+        this.foodName = foodName;
+        this.servingQty = servingQty;
+        this.servingUnit = servingUnit;
+        this.servingWeightGrams = servingWeightGrams;
+        this.nfCalories = nfCalories;
+        this.nfTotalFat = nfTotalFat;
+        this.nfSaturatedFat = nfSaturatedFat;
+        this.nfCholesterol = nfCholesterol;
+        this.nfSodium = nfSodium;
+        this.nfTotalCarbohydrate = nfTotalCarbohydrate;
+        this.nfDietaryFiber = nfDietaryFiber;
+        this.nfSugars = nfSugars;
+        this.nfProtein = nfProtein;
+        this.nfPotassium = nfPotassium;
+        this.nfP = nfP;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 
     public String getFoodName() {
