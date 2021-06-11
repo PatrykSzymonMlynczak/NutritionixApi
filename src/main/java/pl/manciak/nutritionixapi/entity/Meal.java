@@ -1,8 +1,11 @@
 package pl.manciak.nutritionixapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Meal {
@@ -11,6 +14,12 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonManagedReference
+    @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Product> foodList = new HashSet<>();
+
+    @NaturalId
+    @Column(unique = true, nullable = false)
     private String mealName;
 
     private Integer servingWeightGrams = 0;
@@ -28,16 +37,6 @@ public class Meal {
     private Integer nfP = 0;
 
 
-/*    @ManyToMany
-    @JoinTable(
-            name = "products_in_meals",
-            joinColumns = @JoinColumn(name = "meal_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))*/
-
-    @OneToMany
-    private List<Product> foodList = new ArrayList<>();
-
-
 
     public Meal() {
     }
@@ -50,11 +49,11 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public List<Product> getFoodList() {
+    public Set<Product> getFoodList() {
         return foodList;
     }
 
-    public void setFoodList(List<Product> foodList) {
+    public void setFoodList(Set<Product> foodList) {
         this.foodList = foodList;
     }
 
@@ -161,4 +160,6 @@ public class Meal {
     public void setNfP(Integer nfP) {
         this.nfP = nfP;
     }
+
+
 }

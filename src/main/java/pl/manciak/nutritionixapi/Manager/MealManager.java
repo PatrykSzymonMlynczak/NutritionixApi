@@ -34,7 +34,6 @@ public class MealManager {
         productList.stream().forEach(y -> newMeal.getFoodList().add(y));
 
         for(Product food : productList) {
-
             newMeal.setNfCalories(newMeal.getNfCalories() + food.getNfCalories());
             newMeal.setNfCholesterol(newMeal.getNfCholesterol() + food.getNfCholesterol());
             newMeal.setNfDietaryFiber(newMeal.getNfDietaryFiber() + food.getNfDietaryFiber());
@@ -47,33 +46,9 @@ public class MealManager {
             newMeal.setNfTotalCarbohydrate(newMeal.getNfTotalCarbohydrate() + food.getNfTotalCarbohydrate());
             newMeal.setNfTotalFat(newMeal.getNfTotalFat() + food.getNfTotalFat());
             newMeal.setServingWeightGrams(newMeal.getServingWeightGrams() + food.getServingWeightGrams());
-
-           /*if(! productService.ifExists(food.getFoodName())) */
-            productService.save(food);
         }
 
         return mealService.save(newMeal);
-    }
-
-    public List<Product> parseFoodToProduct(List<Food> foodList){
-        List<Product> productList = new ArrayList<>();
-
-        for(Food food : foodList) {
-
-            Product product = new Product(food.getFoodName(),
-                    food.getServingQty(),food.getServingUnit(),
-                    food.getServingWeightGrams(),food.getNfCalories(),
-                    food.getNfTotalFat(),food.getNfSaturatedFat(),
-                    food.getNfCholesterol(),food.getNfSodium(),
-                    food.getNfTotalCarbohydrate(),food.getNfDietaryFiber(),
-                    food.getNfSugars(),food.getNfProtein(),
-                    food.getNfPotassium(),food.getNfP()
-            );
-
-            productList.add(product);
-        }
-
-            return productList;
     }
 
     public Meal getMeal(String name){
@@ -86,8 +61,27 @@ public class MealManager {
         return mealService.getByFood(name);
     }
 
-
     public void deleteMeal(String mealName){
         mealService.deleteByName(mealName);
     }
+
+    private List<Product> parseFoodToProduct(List<Food> foodList){
+        List<Product> productList = new ArrayList<>();
+
+        for(Food food : foodList) {
+            Product product = new Product(food.getFoodName(),
+                    food.getServingQty(),food.getServingUnit(),
+                    food.getServingWeightGrams(),food.getNfCalories(),
+                    food.getNfTotalFat(),food.getNfSaturatedFat(),
+                    food.getNfCholesterol(),food.getNfSodium(),
+                    food.getNfTotalCarbohydrate(),food.getNfDietaryFiber(),
+                    food.getNfSugars(),food.getNfProtein(),
+                    food.getNfPotassium(),food.getNfP()
+            );
+            productList.add(product);
+        }
+        return productList;
+    }
+
+
 }

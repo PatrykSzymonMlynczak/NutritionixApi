@@ -1,8 +1,11 @@
 
 package pl.manciak.nutritionixapi.entity;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -11,6 +14,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonBackReference
+    @ManyToMany(mappedBy = "foodList")
+    private Set<Meal> meals = new HashSet<>();
+
+
+    @Column(unique = false, nullable = false)
     private String foodName;
 
     private Integer servingQty;
@@ -28,8 +37,7 @@ public class Product {
     private Integer nfPotassium;
     private Integer nfP;
 
-    @ManyToOne
-    private Meal meal;
+
 
     public Product() {
     }
@@ -52,12 +60,12 @@ public class Product {
         this.nfP = nfP;
     }
 
-    public Meal getMeal() {
-        return meal;
+    public Set<Meal> getMeals() {
+        return meals;
     }
 
-    public void setMeal(Meal meal) {
-        this.meal = meal;
+    public void setMeals(Set<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getFoodName() {
@@ -179,4 +187,6 @@ public class Product {
     public void setNfP(Integer nfP) {
         this.nfP = nfP;
     }
+
+
 }
