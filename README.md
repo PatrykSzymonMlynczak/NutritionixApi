@@ -17,7 +17,7 @@ Products are duplicating in the database whenever a new meal with the same produ
 * REST
 
 
-Enter the selected products with quantity as a body, and name of meal as path variable:
+Enter the selected products with quantity as a querry params, and name of meal as path variable:
 ![nutritionix](https://user-images.githubusercontent.com/44747531/121747823-44d63d00-cb08-11eb-8afe-9bebaebff0fc.PNG)
 
 App will response with JSON consisting all particular products, and summarized all, also saving it to database as a meal
