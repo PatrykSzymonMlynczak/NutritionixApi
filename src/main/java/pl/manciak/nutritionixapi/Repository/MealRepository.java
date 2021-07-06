@@ -14,6 +14,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     void deleteByMealName(String mealName);
     Optional<Meal> findByMealName(String name);
 
-    List<Meal> findAllMealsByFoodListIn(List<Product> product);
+    List<Meal> findMealsByFoodListIn(List<Product> product);
 
 }

@@ -38,7 +38,6 @@ public class Product {
     private Integer nfP;
 
 
-
     public Product() {
     }
 

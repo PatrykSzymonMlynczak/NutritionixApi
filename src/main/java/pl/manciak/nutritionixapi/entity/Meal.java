@@ -15,7 +15,7 @@ public class Meal {
     private Long id;
 
     @JsonManagedReference
-    @ManyToMany(cascade ={ CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany()
     private Set<Product> foodList = new HashSet<>();
 
     @NaturalId

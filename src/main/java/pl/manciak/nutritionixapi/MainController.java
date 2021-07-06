@@ -30,12 +30,22 @@ public class MainController {
     }
 
     @GetMapping("/food/{foodName}")
-    public List<Meal> getByFood(@PathVariable String foodName){
+    public List<Meal> getByFood(@PathVariable List<String> foodName){
 
         ArrayList<Product> list = new ArrayList();
-        list.add(productRepository.findByFoodName(foodName));
+        foodName.forEach(e -> list.add(productRepository.findByFoodName(e)));
 
         return mealManager.getByFood(list);
+    }
+
+    @GetMapping(path= "/{mealName}")
+    public Meal getMeal(@PathVariable String mealName){
+        return mealManager.getMeal(mealName);
+    }
+
+    @DeleteMapping(path = "/{mealName}")
+    public  void deleteMeal(@PathVariable String mealName){
+        mealManager.deleteMeal(mealName);
     }
 
     /** This method is using external service - Nutritionix
@@ -84,14 +94,6 @@ public class MainController {
         return "{\n    \"query\": \""+query+"\"\n}";
     }
 
-    @GetMapping(path= "/{mealName}")
-    public Meal getMeal(@PathVariable String mealName){
-        return mealManager.getMeal(mealName);
-    }
 
-    @DeleteMapping(path = "/{mealName}")
-    public  void deleteMeal(@PathVariable String mealName){
-        mealManager.deleteMeal(mealName);
-    }
 
 }

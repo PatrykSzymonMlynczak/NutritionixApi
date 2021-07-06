@@ -28,10 +28,7 @@ public class MealManager {
 
         Meal newMeal = new Meal();
         newMeal.setMealName(mealName);
-
-        List<Product> productList = parseFoodToProduct(foodList);
-
-        productList.stream().forEach(y -> newMeal.getFoodList().add(y));
+        List<Product> productList = saveProducts(foodList);
 
         for(Product food : productList) {
             newMeal.setNfCalories(newMeal.getNfCalories() + food.getNfCalories());
@@ -47,8 +44,22 @@ public class MealManager {
             newMeal.setNfTotalFat(newMeal.getNfTotalFat() + food.getNfTotalFat());
             newMeal.setServingWeightGrams(newMeal.getServingWeightGrams() + food.getServingWeightGrams());
         }
+        for (Product product: productList) {
+            newMeal.getFoodList().add(productService.getProductByName(product.getFoodName()));
+        }
+       // productList.stream().forEach(y -> newMeal.getFoodList().add(y.));
+
+
 
         return mealService.save(newMeal);
+    }
+
+    private List<Product> saveProducts(List<Food> foodList){
+        List<Product> productList = parseFoodToProduct(foodList);
+        for (Product product: productList) {
+            if (!productService.ifExists(product.getFoodName()))  productService.save(product);
+        }
+        return productList;
     }
 
     public Meal getMeal(String name){

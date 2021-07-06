@@ -35,8 +35,8 @@ public class MealService   {
         return mealRepository.save(meal);
     }
 
-    public List<Meal> getByFood(List<Product> product){
-       return mealRepository.findAllMealsByFoodListIn(product);
+    public List<Meal> getByFood(List<Product> products){
+       return mealRepository.findMealsByFoodListIn(products);
 
     }
 

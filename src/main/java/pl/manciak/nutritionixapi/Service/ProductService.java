@@ -23,5 +23,9 @@ public class ProductService {
         return productRepository.existsByFoodName(name);
     }
 
+    public Product getProductByName(String name){
+        return productRepository.findByFoodName(name);
+    }
+
 
 }
