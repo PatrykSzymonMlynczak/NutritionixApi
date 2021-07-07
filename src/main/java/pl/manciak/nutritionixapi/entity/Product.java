@@ -10,9 +10,10 @@ import java.util.Set;
 @Entity
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    //todo -> probably @IdClass will be better solution
+    @EmbeddedId
+    private ProductId productId;
+
 
     @JsonBackReference
     @ManyToMany(mappedBy = "foodList")
@@ -20,11 +21,8 @@ public class Product {
 
 
     @Column(unique = false, nullable = false)
-    private String foodName;
+    private String productName;
 
-    private Integer servingQty;
-    private String servingUnit;
-    private Integer servingWeightGrams;
     private Double nfCalories;
     private Double nfTotalFat;
     private Double nfSaturatedFat;
@@ -41,11 +39,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String foodName, Integer servingQty, String servingUnit, Integer servingWeightGrams, Double nfCalories, Double nfTotalFat, Double nfSaturatedFat, Integer nfCholesterol, Integer nfSodium, Double nfTotalCarbohydrate, Integer nfDietaryFiber, Double nfSugars, Double nfProtein, Integer nfPotassium, Integer nfP) {
-        this.foodName = foodName;
-        this.servingQty = servingQty;
-        this.servingUnit = servingUnit;
-        this.servingWeightGrams = servingWeightGrams;
+    public Product(ProductId productId, Double nfCalories, Double nfTotalFat, Double nfSaturatedFat,
+                   Integer nfCholesterol,
+                   Integer nfSodium, Double nfTotalCarbohydrate, Integer nfDietaryFiber, Double nfSugars, Double nfProtein, Integer nfPotassium, Integer nfP) {
+
+        this.productId = productId;
+        this.productName = productId.getFoodName();
         this.nfCalories = nfCalories;
         this.nfTotalFat = nfTotalFat;
         this.nfSaturatedFat = nfSaturatedFat;
@@ -59,44 +58,20 @@ public class Product {
         this.nfP = nfP;
     }
 
+    public ProductId getProductId() {
+        return productId;
+    }
+
+    public void setProductId(ProductId productId) {
+        this.productId = productId;
+    }
+
     public Set<Meal> getMeals() {
         return meals;
     }
 
     public void setMeals(Set<Meal> meals) {
         this.meals = meals;
-    }
-
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
-
-    public Integer getServingQty() {
-        return servingQty;
-    }
-
-    public void setServingQty(Integer servingQty) {
-        this.servingQty = servingQty;
-    }
-
-    public String getServingUnit() {
-        return servingUnit;
-    }
-
-    public void setServingUnit(String servingUnit) {
-        this.servingUnit = servingUnit;
-    }
-
-    public Integer getServingWeightGrams() {
-        return servingWeightGrams;
-    }
-
-    public void setServingWeightGrams(Integer servingWeightGrams) {
-        this.servingWeightGrams = servingWeightGrams;
     }
 
     public Double getNfCalories() {
@@ -187,5 +162,11 @@ public class Product {
         this.nfP = nfP;
     }
 
+    public String getProductName() {
+        return productName;
+    }
 
+    public void setProductName(String foodName) {
+        this.productName = foodName;
+    }
 }

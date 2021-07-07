@@ -36,8 +36,6 @@ public class Meal {
     private Integer nfPotassium = 0;
     private Integer nfP = 0;
 
-
-
     public Meal() {
     }
 

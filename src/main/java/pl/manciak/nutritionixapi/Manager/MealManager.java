@@ -7,6 +7,7 @@ import pl.manciak.nutritionixapi.Service.ProductService;
 import pl.manciak.nutritionixapi.dto.NutriResponse.Food;
 import pl.manciak.nutritionixapi.entity.Meal;
 import pl.manciak.nutritionixapi.entity.Product;
+import pl.manciak.nutritionixapi.entity.ProductId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +43,10 @@ public class MealManager {
             newMeal.setNfSugars(newMeal.getNfSugars() + food.getNfSugars());
             newMeal.setNfTotalCarbohydrate(newMeal.getNfTotalCarbohydrate() + food.getNfTotalCarbohydrate());
             newMeal.setNfTotalFat(newMeal.getNfTotalFat() + food.getNfTotalFat());
-            newMeal.setServingWeightGrams(newMeal.getServingWeightGrams() + food.getServingWeightGrams());
+            newMeal.setServingWeightGrams(newMeal.getServingWeightGrams() + food.getProductId().getServingWeightGrams());
         }
         for (Product product: productList) {
-            newMeal.getFoodList().add(productService.getProductByName(product.getFoodName()));
+            newMeal.getFoodList().add(productService.getProductByProductId(product.getProductId()));
         }
        // productList.stream().forEach(y -> newMeal.getFoodList().add(y.));
 
@@ -56,8 +57,10 @@ public class MealManager {
 
     private List<Product> saveProducts(List<Food> foodList){
         List<Product> productList = parseFoodToProduct(foodList);
+
+
         for (Product product: productList) {
-            if (!productService.ifExists(product.getFoodName()))  productService.save(product);
+            if (!(productService.ifExists(product.getProductId())))  productService.save(product);
         }
         return productList;
     }
@@ -68,7 +71,7 @@ public class MealManager {
         return null;
     }
 
-    public List<Meal> getByFood(List<Product> name){
+    public List<Meal> getByFood(String name){
         return mealService.getByFood(name);
     }
 
@@ -80,9 +83,12 @@ public class MealManager {
         List<Product> productList = new ArrayList<>();
 
         for(Food food : foodList) {
-            Product product = new Product(food.getFoodName(),
+
+            ProductId productId = new ProductId(food.getFoodName(),
                     food.getServingQty(),food.getServingUnit(),
-                    food.getServingWeightGrams(),food.getNfCalories(),
+                    food.getServingWeightGrams());
+
+            Product product = new Product(productId,food.getNfCalories(),
                     food.getNfTotalFat(),food.getNfSaturatedFat(),
                     food.getNfCholesterol(),food.getNfSodium(),
                     food.getNfTotalCarbohydrate(),food.getNfDietaryFiber(),

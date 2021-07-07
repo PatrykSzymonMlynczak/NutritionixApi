@@ -30,12 +30,12 @@ public class MainController {
     }
 
     @GetMapping("/food/{foodName}")
-    public List<Meal> getByFood(@PathVariable List<String> foodName){
+    public List<Meal> getBySingularFoodName(@PathVariable String foodName){
 
-        ArrayList<Product> list = new ArrayList();
-        foodName.forEach(e -> list.add(productRepository.findByFoodName(e)));
+/*        ArrayList<Product> list = new ArrayList();
+        foodName.forEach(e -> list.add(productRepository.findByProductName(e)));*/
 
-        return mealManager.getByFood(list);
+        return mealManager.getByFood(foodName);
     }
 
     @GetMapping(path= "/{mealName}")
